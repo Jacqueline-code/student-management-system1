@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class RoleMiddleware
+{
+    public function handle(
+        Request $request,
+        Closure $next,
+        string $role
+    ): Response {
+
+        // The user must be signed in.
+        if (!$request->user()) {
+            return redirect()->route('login');
+        }
+
+        // Check whether the signed-in user has the required role.
+        $userRole = strtolower(trim($request->user()->role ?? ''));
+
+        if ($userRole !== strtolower($role)) {
+            abort(403, 'You are not authorized to access this page.');
+        }
+
+        return $next($request);
+    }
+}
