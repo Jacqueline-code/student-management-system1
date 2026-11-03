@@ -4,68 +4,86 @@
 
 @section('content')
 
-<div class="container">
+<div class="max-w-7xl mx-auto">
 
-    <div class="mb-4">
-        <h2>Lecturer Dashboard</h2>
+    <div class="mb-8">
+        <p class="text-sm text-blue-600 font-semibold mb-2">
+            Teaching Portal
+        </p>
 
-        <p>
-            Welcome, {{ Auth::user()->name }}.
-            You are signed in as a lecturer.
+        <h2 class="text-2xl font-bold text-slate-900">
+            Lecturer Dashboard
+        </h2>
+
+        <p class="text-sm text-slate-500 mt-2">
+            Access your teaching and academic management functions.
         </p>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
-    <div class="row">
+    <div class="bg-blue-700 rounded-xl p-6 sm:p-8 text-white mb-8">
+        <h3 class="text-xl font-bold">
+            Welcome, {{ auth()->user()->name }}!
+        </h3>
 
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5>My Courses</h5>
+        <p class="text-blue-100 text-sm mt-2">
+            This is your lecturer portal. You can access your courses
+            and related academic activities here.
+        </p>
+    </div>
 
-                    <p>
-                        Your assigned courses and course information
-                        will appear here when course management is connected.
-                    </p>
 
-                    <span class="text-muted">
-                        Course management not yet available.
-                    </span>
-                </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+        <div class="page-card">
+            <div class="w-12 h-12 rounded-lg bg-purple-100 text-purple-700
+                        flex items-center justify-center mb-5">
+                <i data-lucide="book-open" class="w-6 h-6"></i>
             </div>
+
+            <h3 class="font-bold text-slate-900 text-lg">
+                My Courses
+            </h3>
+
+            <p class="text-sm text-slate-500 mt-2 mb-5">
+                Access the courses assigned to you and manage
+                relevant course information.
+            </p>
+
+            @if(Route::has('courses.index'))
+                <a href="{{ route('courses.index') }}" class="btn-primary">
+                    View Courses
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            @else
+                <span class="text-xs text-slate-400">
+                    Course management is not yet available.
+                </span>
+            @endif
         </div>
 
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5>My Account</h5>
 
-                    <p>Name: {{ Auth::user()->name }}</p>
-                    <p>Email: {{ Auth::user()->email }}</p>
-                    <p>Role: Lecturer</p>
-                </div>
+        <div class="page-card">
+            <div class="w-12 h-12 rounded-lg bg-green-100 text-green-700
+                        flex items-center justify-center mb-5">
+                <i data-lucide="user-round" class="w-6 h-6"></i>
             </div>
-        </div>
 
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Sign Out</h5>
+            <h3 class="font-bold text-slate-900 text-lg">
+                My Account
+            </h3>
 
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
+            <p class="text-sm text-slate-500 mt-2 mb-5">
+                View the details associated with your lecturer account.
+            </p>
 
-                        <button type="submit" class="btn btn-danger">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <p class="text-sm font-semibold text-slate-700">
+                {{ auth()->user()->name }}
+            </p>
+
+            <p class="text-xs text-slate-500 mt-1">
+                {{ auth()->user()->email }}
+            </p>
         </div>
 
     </div>
