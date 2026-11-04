@@ -33,6 +33,20 @@ class Student extends Model
         return $this->hasMany(CourseRegistration::class);
     }
 
+public function courses()
+{
+    return $this->belongsToMany(
+        Course::class,
+        'course_registrations'
+    )->withPivot([
+        'id',
+        'academic_year',
+        'semester',
+        'status',
+    ])->withTimestamps();
+}
+
+
     // Combines first and last name.
     public function getFullNameAttribute()
     {

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -272,6 +271,14 @@
                         </a>
                     @endif
 
+                    @if($currentRole === 'admin' && Route::has('admin.registrations'))
+                        <a href="{{ route('admin.registrations') }}"
+                           class="mobile-link {{ request()->routeIs('admin.registrations*') ? 'active' : '' }}">
+                            <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+                            Registrations
+                        </a>
+                    @endif
+
                     @if($currentRole === 'lecturer' && Route::has('courses.index'))
                         <a href="{{ route('courses.index') }}"
                            class="mobile-link {{ request()->routeIs('courses.*') ? 'active' : '' }}">
@@ -280,11 +287,27 @@
                         </a>
                     @endif
 
+                    @if($currentRole === 'lecturer' && Route::has('lecturer.my-courses'))
+                        <a href="{{ route('lecturer.my-courses') }}"
+                           class="mobile-link {{ request()->routeIs('lecturer.my-courses', 'lecturer.course-students') ? 'active' : '' }}">
+                            <i data-lucide="users" class="w-4 h-4"></i>
+                            Class Lists
+                        </a>
+                    @endif
+
                     @if($currentRole === 'student' && Route::has('student.courses'))
                         <a href="{{ route('student.courses') }}"
                            class="mobile-link {{ request()->routeIs('student.courses') ? 'active' : '' }}">
                             <i data-lucide="book-open" class="w-4 h-4"></i>
-                            My Courses
+                            Courses
+                        </a>
+                    @endif
+
+                    @if($currentRole === 'student' && Route::has('student.my-registrations'))
+                        <a href="{{ route('student.my-registrations') }}"
+                           class="mobile-link {{ request()->routeIs('student.my-registrations') ? 'active' : '' }}">
+                            <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+                            My Registrations
                         </a>
                     @endif
 
@@ -353,6 +376,14 @@
                                 </a>
                             @endif
 
+                            @if(Route::has('admin.registrations'))
+                                <a href="{{ route('admin.registrations') }}"
+                                   class="sidebar-link {{ request()->routeIs('admin.registrations*') ? 'active' : '' }}">
+                                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                                    Manage Registrations
+                                </a>
+                            @endif
+
                         @elseif($currentRole === 'lecturer')
 
                             <p class="px-3 pt-6 pb-2 text-xs font-semibold
@@ -368,6 +399,14 @@
                                 </a>
                             @endif
 
+                            @if(Route::has('lecturer.my-courses'))
+                                <a href="{{ route('lecturer.my-courses') }}"
+                                   class="sidebar-link {{ request()->routeIs('lecturer.my-courses', 'lecturer.course-students') ? 'active' : '' }}">
+                                    <i data-lucide="users" class="w-5 h-5"></i>
+                                    Class Lists
+                                </a>
+                            @endif
+
                         @elseif($currentRole === 'student')
 
                             <p class="px-3 pt-6 pb-2 text-xs font-semibold
@@ -379,7 +418,15 @@
                                 <a href="{{ route('student.courses') }}"
                                    class="sidebar-link {{ request()->routeIs('student.courses') ? 'active' : '' }}">
                                     <i data-lucide="book-open" class="w-5 h-5"></i>
-                                    My Courses
+                                    Browse Courses
+                                </a>
+                            @endif
+
+                            @if(Route::has('student.my-registrations'))
+                                <a href="{{ route('student.my-registrations') }}"
+                                   class="sidebar-link {{ request()->routeIs('student.my-registrations') ? 'active' : '' }}">
+                                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                                    My Registrations
                                 </a>
                             @endif
 
@@ -440,6 +487,23 @@
                 </main>
 
             </div>
+
+
+            <!-- FOOTER -->
+            <footer class="bg-white border-t border-slate-200 px-6 py-5">
+                <div class="max-w-screen-2xl mx-auto flex flex-col sm:flex-row
+                            items-center justify-between gap-2">
+
+                    <p class="text-xs text-slate-500">
+                        &copy; {{ date('Y') }} Student Management System. All rights reserved.
+                    </p>
+
+                    <p class="text-xs text-slate-500">
+                        Campus Academic Portal
+                    </p>
+
+                </div>
+            </footer>
 
         </div>
 

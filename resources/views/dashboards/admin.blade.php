@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Admin Dashboard')
@@ -6,7 +7,7 @@
 
 <div class="max-w-7xl mx-auto">
 
-    <!-- Page heading -->
+    {{-- Page heading --}}
     <div class="mb-8">
         <p class="text-sm text-blue-600 font-semibold mb-2">
             Administration
@@ -21,8 +22,7 @@
         </p>
     </div>
 
-
-    <!-- Welcome card -->
+    {{-- Welcome card --}}
     <div class="bg-blue-700 rounded-xl p-6 sm:p-8 text-white mb-8">
         <h3 class="text-xl font-bold">
             Welcome, {{ auth()->user()->name }}!
@@ -34,14 +34,12 @@
         </p>
     </div>
 
-
-    <!-- Management cards -->
+    {{-- Management cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
-        <!-- Student management -->
+        {{-- Student management --}}
         <div class="page-card">
-            <div class="w-12 h-12 rounded-lg bg-blue-100 text-blue-700
-                        flex items-center justify-center mb-5">
+            <div class="w-12 h-12 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center mb-5">
                 <i data-lucide="users" class="w-6 h-6"></i>
             </div>
 
@@ -60,11 +58,9 @@
             </a>
         </div>
 
-
-        <!-- Course management -->
+        {{-- Course management --}}
         <div class="page-card">
-            <div class="w-12 h-12 rounded-lg bg-purple-100 text-purple-700
-                        flex items-center justify-center mb-5">
+            <div class="w-12 h-12 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center mb-5">
                 <i data-lucide="book-open" class="w-6 h-6"></i>
             </div>
 
@@ -88,11 +84,29 @@
             @endif
         </div>
 
-
-        <!-- Lecturer management -->
+        {{-- Course registration management --}}
         <div class="page-card">
-            <div class="w-12 h-12 rounded-lg bg-green-100 text-green-700
-                        flex items-center justify-center mb-5">
+            <div class="w-12 h-12 rounded-lg bg-green-100 text-green-700 flex items-center justify-center mb-5">
+                <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+            </div>
+
+            <h3 class="font-bold text-slate-900 text-lg">
+                Course Registrations
+            </h3>
+
+            <p class="text-sm text-slate-500 mt-2 mb-5">
+                View student registrations and manage course enrolments.
+            </p>
+
+            <a href="{{ route('admin.registrations') }}" class="btn-secondary">
+                Manage Registrations
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+
+        {{-- Lecturer management --}}
+        <div class="page-card">
+            <div class="w-12 h-12 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center mb-5">
                 <i data-lucide="graduation-cap" class="w-6 h-6"></i>
             </div>
 
@@ -118,8 +132,7 @@
 
     </div>
 
-
-    <!-- Account information -->
+    {{-- Account information --}}
     <div class="page-card mt-8">
         <h3 class="font-bold text-slate-900 mb-4">
             Account Information
