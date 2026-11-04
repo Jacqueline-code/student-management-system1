@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CourseRegistrationController;
 
 // Public home page
 Route::get('/', function () {
@@ -44,7 +45,7 @@ Route::middleware('auth')->group(function () {
         return view('dashboards.student');
     })->name('student.dashboard');
 
-    // General dashboard URL: redirect to the correct role dashboard.
+    // General dashboard redirect
     Route::get('/dashboard', function () {
 
         $role = strtolower(trim(auth()->user()->role ?? ''));
@@ -65,9 +66,47 @@ Route::middleware('auth')->group(function () {
 
     })->name('dashboard');
 
-    // Only administrators can manage student records.
+    // Administrator: manage student records
     Route::middleware('role:admin')->group(function () {
+
         Route::resource('students', StudentController::class);
+
+    });
+
+    // Student: course registration
+    Route::middleware('role:student')->group(function () {
+
+        Route::get('/student/courses', [CourseRegistrationController::class, 'availableCourses'])
+            ->name('student.courses');
+
+        Route::post('/student/register-course', [CourseRegistrationController::class, 'store'])
+            ->name('student.register-course');
+
+        Route::get('/student/my-registrations', [CourseRegistrationController::class, 'myRegistrations'])
+            ->name('student.my-registrations');
+
+    });
+
+    // Lecturer: assigned courses and registered students
+    Route::middleware('role:lecturer')->group(function () {
+
+        Route::get('/lecturer/my-courses', [CourseRegistrationController::class, 'lecturerCourses'])
+            ->name('lecturer.my-courses');
+
+        Route::get('/lecturer/courses/{course}/students', [CourseRegistrationController::class, 'lecturerStudents'])
+            ->name('lecturer.course-students');
+
+    });
+
+    // Administrator: manage course registrations
+    Route::middleware('role:admin')->group(function () {
+
+        Route::get('/admin/registrations', [CourseRegistrationController::class, 'adminIndex'])
+            ->name('admin.registrations');
+
+        Route::delete('/admin/registrations/{registration}', [CourseRegistrationController::class, 'destroy'])
+            ->name('admin.registrations.destroy');
+
     });
 
     // Logout
