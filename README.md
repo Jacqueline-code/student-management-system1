@@ -55,7 +55,7 @@ Do not run `php artisan migrate:fresh` on a database that holds other data.
 These accounts are for local testing only.
 
 - **Administrator:** manages students, courses, lecturers and all registrations.
-- **Lecturer:** views assigned courses and the students registered for them.
+- **Lecturer:** views their assigned courses and the students enrolled in each one.
 - **Student:** views open courses, registers for a course and views their own registrations.
 - screenshots<img width="959" height="539" alt="leacturer features" src="https://github.com/user-attachments/assets/7d65f319-296c-43e2-b8c0-0ab17b355e5a" />
 <img width="959" height="539" alt="class list" src="https://github.com/user-attachments/assets/7b063097-73ef-4573-aa34-bc717ec176ae" />
